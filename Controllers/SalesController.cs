@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using aspnetapp.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace aspnetapp.Controllers
 {
-    
+
     public class SalesController : Controller
     {
-        private readonly SalesContext _context;
+        private SalesContext _context;
 
         public SalesController(SalesContext context)
         {
@@ -26,7 +27,8 @@ namespace aspnetapp.Controllers
                     Salesperson = "Charlie",
                     hasPayment = true,
                     Price = 199
-                }, new Sales {
+                }, new Sales
+                {
                     CustomerName = "Netflix",
                     Salesperson = "Doug",
                     hasPayment = false,
@@ -38,7 +40,7 @@ namespace aspnetapp.Controllers
         public IActionResult Index()
         {
             List<Sales> sales = Task.Run(GetSales).Result.Value.ToList();
-            
+
             return View(sales);
         }
 
@@ -73,5 +75,38 @@ namespace aspnetapp.Controllers
 
             return salesItem;
         }
+        //Redireciona para a pagina EDIT com os dados
+        public async Task<ActionResult> Edit(long? id)
+        {
+            var item = await _context.SalesData.SingleOrDefaultAsync(s => s.Id == id);
+
+            return View(item);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(long? id, Sales sl)
+        {
+
+            var vendas = _context.SalesData.Find(id);
+
+            vendas.CustomerName = sl.CustomerName;
+            vendas.Salesperson = sl.Salesperson;
+            vendas.hasPayment = sl.hasPayment;
+            vendas.Price = sl.Price;
+
+
+            _context.SalesData.Update(vendas);
+
+
+           _context.SaveChanges();
+
+            return RedirectToAction("Index");
+              
+            
+          
+        }
+
+
     }
 }
