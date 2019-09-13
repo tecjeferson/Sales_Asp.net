@@ -13,7 +13,7 @@ namespace aspnetapp.Controllers
 
     public class SalesController : Controller
     {
-        private SalesContext _context;
+        private readonly SalesContext _context;
 
         public SalesController(SalesContext context)
         {
@@ -49,9 +49,17 @@ namespace aspnetapp.Controllers
             return View();
         }
 
-        public IActionResult Salesperson()
+        [HttpPost, ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Sales sales)
         {
-            return View();
+
+            _context.SalesData.Add(sales);
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index");
+
         }
 
 
@@ -95,18 +103,27 @@ namespace aspnetapp.Controllers
             vendas.hasPayment = sl.hasPayment;
             vendas.Price = sl.Price;
 
-
             _context.SalesData.Update(vendas);
-
-
-           _context.SaveChanges();
-
+            _context.SaveChanges();
             return RedirectToAction("Index");
-              
-            
-          
+
         }
 
+        public ActionResult Delete(long? id)
+        {
+            var item = _context.SalesData.Find(id);
+            return View(_context.SalesData.Find(id));
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Sales sales)
+        {
+
+
+            _context.SalesData.Remove(sales);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

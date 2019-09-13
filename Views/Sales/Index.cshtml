@@ -35,7 +35,8 @@
                         @Html.ActionLink("Edit","Edit", new {id = sales.Id}, null)
                     </td>
                     <td>
-                        <button type="submit" asp-page-handler="delete" asp-route-id="@sales.Id">Delete</button>
+                        <!-- <button type="submit" asp-page-handler="delete" asp-route-id="@sales.Id">Delete</button> -->
+                        @Html.ActionLink("Delete", "Delete", new {id= sales.Id}, null)
                     </td>
                 </tr>
             }
