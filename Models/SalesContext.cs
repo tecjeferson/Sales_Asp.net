@@ -9,5 +9,7 @@ namespace aspnetapp.Models
         {
         }
         public DbSet<Sales> SalesData { get; set; }
+       public DbSet<SalesPerson> SalespersonData {get; set;}
+       
     }
 }

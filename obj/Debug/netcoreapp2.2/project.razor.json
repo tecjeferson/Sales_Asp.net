@@ -2966,8 +2966,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Sales\\dashboard.cshtml",
+      "TargetPath": "Views\\Sales\\dashboard.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Salesperson\\Create.cshtml",
+      "TargetPath": "Views\\Salesperson\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2986,6 +2996,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Salesperson\\Delete.cshtml",
+      "TargetPath": "Views\\Salesperson\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -2998,6 +3013,11 @@
     {
       "FilePath": "Views\\Sales\\Edit.cshtml",
       "TargetPath": "Views\\Sales\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Salesperson\\Edit.cshtml",
+      "TargetPath": "Views\\Salesperson\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {

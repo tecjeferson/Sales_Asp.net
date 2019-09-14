@@ -1,0 +1,31 @@
+@model aspnetapp.Models.SalesPerson
+
+<h3>Confirm if you really want to delete this</h3>
+
+
+<div>
+    <h4>Sales</h4>
+    <hr/>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Salesperson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Salesperson)
+        </dd>
+    </dl>
+</div>
+
+ <form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Index">Back to List</a>
+ </form>
+

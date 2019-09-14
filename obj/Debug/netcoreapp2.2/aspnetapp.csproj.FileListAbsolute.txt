@@ -64,3 +64,6 @@ C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\aspnetapp.pdb
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\aspnetapp.csproj.CopyComplete
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Sales\Edit.g.cshtml.cs
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Sales\Delete.g.cshtml.cs
+C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Create.g.cshtml.cs
+C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Edit.g.cshtml.cs
+C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Delete.g.cshtml.cs

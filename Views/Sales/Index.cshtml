@@ -18,6 +18,8 @@
         <tbody>
             @foreach (var sales in Model)
             {
+                @if (sales.CustomerName != null)
+                {
                 <tr>
                     <td>@sales.Id</td>
                     <td>@sales.CustomerName</td>
@@ -39,6 +41,8 @@
                         @Html.ActionLink("Delete", "Delete", new {id= sales.Id}, null)
                     </td>
                 </tr>
+                }
+                
             }
         </tbody>    
     </table>

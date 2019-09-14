@@ -8,6 +8,7 @@ using aspnetapp.Models;
 using Microsoft.EntityFrameworkCore;
 
 
+
 namespace aspnetapp.Controllers
 {
 
@@ -44,24 +45,6 @@ namespace aspnetapp.Controllers
             return View(sales);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost, ActionName("Create")]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Sales sales)
-        {
-
-            _context.SalesData.Add(sales);
-            _context.SaveChanges();
-
-
-            return RedirectToAction("Index");
-
-        }
-
 
         // GET: api/Sales
         [HttpGet]
@@ -69,7 +52,6 @@ namespace aspnetapp.Controllers
         {
             return await _context.SalesData.ToListAsync();
         }
-
         // GET: api/Sales/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Sales>> GetSalesId(long id)
@@ -83,6 +65,27 @@ namespace aspnetapp.Controllers
 
             return salesItem;
         }
+        public IActionResult Create()
+        {
+            var sales = _context.SalesData.OrderBy(i => i.Salesperson).ToList();
+            sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
+            ViewBag.Sales = sales;
+
+            return View();
+        }
+
+        [HttpPost, ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Sales sales)
+        {
+
+            await _context.SalesData.AddAsync(sales);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+
+        }
+
         //Redireciona para a pagina EDIT com os dados
         public async Task<ActionResult> Edit(long? id)
         {
