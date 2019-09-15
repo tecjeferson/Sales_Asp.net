@@ -31,6 +31,7 @@ namespace aspnet.Services.Implementations
                 });
                 _context.SaveChanges();
             }
+            
         }
 
         public Sales Create(Sales sales)

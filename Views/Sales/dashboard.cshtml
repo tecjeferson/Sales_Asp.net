@@ -4,9 +4,79 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <h2>DashBoard</h2>
 
-<!-- https://localhost:5001/api/Sales -->
-
-
 <div id="container" style="min-with: 310px; height: 400px; margin: 0 auto"></div>
 
 
+
+<script>
+
+  function loadChart(data){
+
+    console.log(data[0].price)
+    let tamanho = data.length
+
+    for(let i= 0; i < tamanho; i++)
+    {
+      let slPerson = data[i].salesperson;
+      let price = data[i].price;
+      console.log(slPerson)
+      
+    }
+
+    
+    var canvas = document.getElementById("meuChart");
+   Highcharts.chart('container', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'Browser market shares in January, 2018'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+      }
+    }
+  },
+  series: [{
+    name: 'Brands',
+    colorByPoint: true,
+    data: [{
+      name: data[0].salesperson,
+      y: data[0].price,
+      sliced: true,
+      selected: true
+    }, {
+      name: data[1].salesperson,
+      y: data[1].price
+    }]
+  }]
+});
+
+  }
+
+
+  function loadData(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                loadChart(JSON.parse(this.responseText));
+            }
+        }
+        xhttp.open('GET','https://localhost:5001/api/Sales/', true);
+        xhttp.send();
+    }
+    loadData();
+
+
+</script>

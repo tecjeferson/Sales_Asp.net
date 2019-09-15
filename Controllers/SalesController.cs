@@ -3,6 +3,7 @@ using aspnet.Services.Implementations;
 using aspnetapp.Models;
 using aspnet.Services;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace aspnetapp.Controllers
 {
@@ -130,9 +131,16 @@ namespace aspnetapp.Controllers
 
         public ActionResult Dashboard()
         {
-            var sales = _salesService.FindAll().OrderBy(i => i.Salesperson).ToList();
-            sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
-            ViewBag.Sales = sales;
+            // var sales = _salesService.FindAll().OrderBy(i => i.Salesperson).ToList();
+            // sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
+            // ViewBag.Sales = sales;
+            // var sales = _salesService.FindAll();
+            // List<int> repartitions = new List<int>();
+            // var slPerson = _salesService.Find(x => x.Salesperson).Distinct();
+
+
+
+
             return View();
         }
 
