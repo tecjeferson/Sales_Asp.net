@@ -41,6 +41,7 @@ namespace aspnetapp
 
             //Dependence injection
             services.AddScoped<ISalesService, SalesServiceImp>();
+            services.AddScoped<ISalesPersonService, SalesPersonImp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

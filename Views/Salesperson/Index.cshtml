@@ -3,28 +3,24 @@
 
 <p>Salesperson TODO</p>
 
-<div>
-    @Html.ActionLink("Create New Salesperson","Create")
-</div>
+
 <form method="post">
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 
-                <th>Salesperson</th>
+                <th>SalesPerson</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var salesPerson in Model)
+          @foreach (var salesPerson in Model)
             {
                 <tr>
                     <td>@salesPerson.Id</td>
                     <td>@salesPerson.Salesperson</td>
-                    
-                    
-                   
-                   
+                                      
+                                      
                     <td>
                         @Html.ActionLink("Edit","Edit", new {id = salesPerson.Id}, null)
                     </td>
@@ -34,6 +30,7 @@
                     </td>
                 </tr>
             }
+            
         </tbody>    
     </table>
 </form>
