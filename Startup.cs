@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using aspnet.Services;
+using aspnet.Services.Implementations;
 using aspnetapp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,8 +36,11 @@ namespace aspnetapp
             });
 
             services.AddDbContext<SalesContext>(opt =>
-                opt.UseInMemoryDatabase("SalesList"));
+               opt.UseInMemoryDatabase("SalesList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //Dependence injection
+            services.AddScoped<ISalesService, SalesServiceImp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

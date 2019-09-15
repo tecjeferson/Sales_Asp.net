@@ -67,3 +67,4 @@ C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Sal
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Create.g.cshtml.cs
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Edit.g.cshtml.cs
 C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Salesperson\Delete.g.cshtml.cs
+C:\Users\jefbg\Documents\projetos\aspnet\obj\Debug\netcoreapp2.2\Razor\Views\Sales\Dashboard.g.cshtml.cs

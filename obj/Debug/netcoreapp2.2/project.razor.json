@@ -2966,8 +2966,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Sales\\dashboard.cshtml",
-      "TargetPath": "Views\\Sales\\dashboard.cshtml",
+      "FilePath": "Views\\Sales\\Dashboard.cshtml",
+      "TargetPath": "Views\\Sales\\Dashboard.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3008,6 +3008,11 @@
     {
       "FilePath": "Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\SalesApi\\Index.cshtml",
+      "TargetPath": "Views\\SalesApi\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace aspnetapp.Models
 {
@@ -9,7 +10,9 @@ namespace aspnetapp.Models
         {
         }
         public DbSet<Sales> SalesData { get; set; }
-       public DbSet<SalesPerson> SalespersonData {get; set;}
-       
+        //public DbSet<SalesPerson> SalespersonData {get; set;}
+
+
+
     }
 }

@@ -1,132 +1,142 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using aspnet.Services.Implementations;
 using aspnetapp.Models;
-using Microsoft.EntityFrameworkCore;
-
-
+using aspnet.Services;
+using System.Linq;
 
 namespace aspnetapp.Controllers
 {
-
     public class SalesController : Controller
     {
-        private readonly SalesContext _context;
-
-        public SalesController(SalesContext context)
+        //injection dependence from ISalesService
+        private ISalesService _salesService;
+        public SalesController(ISalesService salesService)
         {
-            _context = context;
-
-            if (_context.SalesData.Count() == 0)
-            {
-                _context.SalesData.AddRange(new Sales
-                {
-                    CustomerName = "Aveva Inc.",
-                    Salesperson = "Charlie",
-                    hasPayment = true,
-                    Price = 199
-                }, new Sales
-                {
-                    CustomerName = "Netflix",
-                    Salesperson = "Doug",
-                    hasPayment = false,
-                    Price = 13
-                });
-                _context.SaveChanges();
-            }
+            _salesService = salesService;
         }
+
+        //IAction for Index View in Sales folder
         public IActionResult Index()
         {
-            List<Sales> sales = Task.Run(GetSales).Result.Value.ToList();
+            var sales = _salesService.FindAll();
 
             return View(sales);
         }
 
-
-        // GET: api/Sales
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sales>>> GetSales()
+        //Returns a Json from In Memory Database
+        [HttpGet("api/[controller]")]
+        public IActionResult Get()
         {
-            return await _context.SalesData.ToListAsync();
+            return Ok(_salesService.FindAll());
         }
-        // GET: api/Sales/id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Sales>> GetSalesId(long id)
+        //Returns a Json by ID parameter from In Memory Database
+        [HttpGet("api/[controller]/{id}")]
+        public IActionResult Get(long? id)
         {
-            var salesItem = await _context.SalesData.FindAsync(id);
-
-            if (salesItem == null)
-            {
-                return NotFound();
-            }
-
-            return salesItem;
+            var sale = _salesService.FindById(id);
+            if (sale == null) return NotFound();
+            return Ok(sale);
         }
+
+
+
+        //Update sending data by Json
+        [HttpPut("api/[controller]/{id}")]
+        public IActionResult Put([FromBody]Sales sales)
+        {
+            if (sales == null) return BadRequest();
+            return new ObjectResult(_salesService.Update(sales));
+        }
+        //Redireciona para a pagina EDIT com os dados
+        public ActionResult Edit(long? id)
+        {
+            var sales = _salesService.FindAll().OrderBy(i => i.Salesperson).ToList();
+            sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
+            ViewBag.Sales = sales;
+            var item = _salesService.FindAll().SingleOrDefault(s => s.Id == id);
+
+            return View(item);
+        }
+        //
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(long? id, Sales sl)
+        {
+            var vendas = _salesService.FindById(id);
+            vendas.CustomerName = sl.CustomerName;
+            vendas.Salesperson = sl.Salesperson;
+            vendas.hasPayment = sl.hasPayment;
+            vendas.Price = sl.Price;
+
+            _salesService.Update(vendas);
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+        //Creates sending data by Json
+        [HttpPost("api/[controller]")]
+        public IActionResult Post([FromBody]Sales sales)
+        {
+            if (sales == null) return BadRequest();
+            return new ObjectResult(_salesService.Create(sales));
+        }
+
+        //Return to Create.cshtml Salesperson data and redirect to View page
         public IActionResult Create()
         {
-            var sales = _context.SalesData.OrderBy(i => i.Salesperson).ToList();
+            var sales = _salesService.FindAll().OrderBy(i => i.Salesperson).ToList();
             sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
             ViewBag.Sales = sales;
 
             return View();
         }
 
+        //Creates by Create.cshtml in View folder
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Sales sales)
+        public IActionResult Create(Sales sales)
         {
-
-            await _context.SalesData.AddAsync(sales);
-            await _context.SaveChangesAsync();
-
+            _salesService.Create(sales);
             return RedirectToAction("Index");
-
         }
 
-        //Redireciona para a pagina EDIT com os dados
-        public async Task<ActionResult> Edit(long? id)
+
+        [HttpDelete("api/[controller]/{id}")]
+        public IActionResult Del(long id)
         {
-            var item = await _context.SalesData.SingleOrDefaultAsync(s => s.Id == id);
-
-            return View(item);
+            _salesService.Delete(id);
+            return NoContent();
         }
 
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(long? id, Sales sl)
-        {
-
-            var vendas = _context.SalesData.Find(id);
-
-            vendas.CustomerName = sl.CustomerName;
-            vendas.Salesperson = sl.Salesperson;
-            vendas.hasPayment = sl.hasPayment;
-            vendas.Price = sl.Price;
-
-            _context.SalesData.Update(vendas);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-
-        }
 
         public ActionResult Delete(long? id)
         {
-            var item = _context.SalesData.Find(id);
-            return View(_context.SalesData.Find(id));
+            //var item = _salesService.FindById(id);
+            return View(_salesService.FindById(id));
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Sales sales)
+        public ActionResult Delete(long id)
         {
+            _salesService.Delete(id);
 
-
-            _context.SalesData.Remove(sales);
-            _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Dashboard()
+        {
+            var sales = _salesService.FindAll().OrderBy(i => i.Salesperson).ToList();
+            sales.Insert(0, new Sales() { Id = 0, Salesperson = "" });
+            ViewBag.Sales = sales;
+            return View();
+        }
+
+
+
     }
 }
