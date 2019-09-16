@@ -1,8 +1,11 @@
-@model List<aspnetapp.Models.SalesPerson>
+@model List<aspnetapp.Models.Sales>
 
 
 <p>Salesperson TODO</p>
 
+<div>
+    @Html.ActionLink("Create New Salesperson","Create")
+</div>
 
 <form method="post">
     <table class="table">
@@ -14,19 +17,19 @@
             </tr>
         </thead>
         <tbody>
-          @foreach (var salesPerson in Model)
+          @foreach (var sales in Model)
             {
                 <tr>
-                    <td>@salesPerson.Id</td>
-                    <td>@salesPerson.Salesperson</td>
+                    <td>@sales.Id</td>
+                    <td>@sales.Salesperson</td>
                                       
                                       
                     <td>
-                        @Html.ActionLink("Edit","Edit", new {id = salesPerson.Id}, null)
+                        @Html.ActionLink("Edit","Edit", new {id = sales.Id}, null)
                     </td>
                     <td>
                      
-                        @Html.ActionLink("Delete", "Delete", new {id= salesPerson.Id}, null)
+                        @Html.ActionLink("Delete", "Delete", new {id= sales.Id}, null)
                     </td>
                 </tr>
             }

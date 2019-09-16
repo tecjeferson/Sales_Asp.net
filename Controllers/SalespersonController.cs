@@ -10,8 +10,8 @@ namespace aspnetapp.Controllers
 
     public class SalesPersonController : Controller
     {
-        public ISalesPersonService _contextSP;
-        public SalesPersonController(ISalesPersonService salesService)
+        private ISalesService _contextSP;
+        public SalesPersonController(ISalesService salesService)
         {
             _contextSP = salesService;
 
@@ -20,7 +20,7 @@ namespace aspnetapp.Controllers
         public IActionResult Index()
         {
 
-            List<SalesPerson> salesPerson = _contextSP.FindAll();
+            var salesPerson = _contextSP.FindAll();
 
             return View(salesPerson);
         }
@@ -65,57 +65,54 @@ namespace aspnetapp.Controllers
 
 
 
-        // //Creates sending data by Json
-        // [HttpPost("api/[controller]")]
-        // public IActionResult Post([FromBody]SalesPerson salesperson)
-        // {
-        //     if (salesperson == null) return BadRequest();
-        //     return new ObjectResult(_salesPersonService.Create(salesperson));
-        // }
+        //Creates sending data by Json
+        [HttpPost("api/[controller]")]
+        public IActionResult Post([FromBody]Sales sales)
+        {
+            if (sales == null) return BadRequest();
+            return new ObjectResult(_contextSP.Create(sales));
+        }
 
-        // //Return to Create.cshtml Salesperson data and redirect to View page
-        // public IActionResult Create()
-        // {
-        //     var sales = _salesPersonService.FindAll().OrderBy(i => i.Salesperson).ToList();
-        //     sales.Insert(0, new SalesPerson() { Id = 0, Salesperson = "" });
-        //     ViewBag.Sales = sales;
+        //Return to Create.cshtml Salesperson data and redirect to View page
+        public IActionResult Create()
+        {
 
-        //     return View();
-        // }
+            return View();
+        }
 
         // //Creates by Create.cshtml in View folder
-        // [HttpPost, ActionName("Create")]
-        // [ValidateAntiForgeryToken]
-        // public IActionResult Create(SalesPerson salesperson)
-        // {
-        //     _salesPersonService.Create(salesperson);
-        //     return RedirectToAction("Index");
-        // }
+        [HttpPost, ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Sales sales)
+        {
+            _contextSP.Create(sales);
+            return RedirectToAction("Index");
+        }
 
 
-        // [HttpDelete("api/[controller]/{id}")]
-        // public IActionResult Del(long id)
-        // {
-        //     _salesPersonService.Delete(id);
-        //     return NoContent();
-        // }
+        [HttpDelete("api/[controller]/{id}")]
+        public IActionResult Del(long id)
+        {
+            _contextSP.Delete(id);
+            return NoContent();
+        }
 
 
-        // public ActionResult Delete(long? id)
-        // {
-        //     //var item = _salesPersonService.FindById(id);
-        //     return View(_salesPersonService.FindById(id));
-        // }
+        public ActionResult Delete(long? id)
+        {
+            //var item = _salesPersonService.FindById(id);
+            return View(_contextSP.FindById(id));
+        }
 
 
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public ActionResult Delete(long id)
-        // {
-        //     _salesPersonService.Delete(id);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            _contextSP.Delete(id);
 
-        //     return RedirectToAction("Index");
-        // }
+            return RedirectToAction("Index");
+        }
 
 
 

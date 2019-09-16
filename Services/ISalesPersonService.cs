@@ -5,11 +5,11 @@ namespace aspnet.Services
 {
     public interface ISalesPersonService
     {
-        SalesPerson Create(SalesPerson salesperson);
-        SalesPerson FindById(long? id);
-        List<SalesPerson> FindAll();
-        SalesPerson Update(SalesPerson salesperson);
-        void Delete(long id);
+        // SalesPerson Create(SalesPerson salesperson);
+        // SalesPerson FindById(long? id);
+        // List<SalesPerson> FindAll();
+        // SalesPerson Update(SalesPerson salesperson);
+        // void Delete(long id);
 
     }
 }

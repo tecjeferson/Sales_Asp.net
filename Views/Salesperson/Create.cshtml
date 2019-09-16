@@ -1,4 +1,4 @@
-@model aspnetapp.Models.SalesPerson
+@model aspnetapp.Models.Sales
 
 
 <h2>Create Salesperson</h2>
@@ -10,12 +10,12 @@
         <input type="hidden" asp-for="Id" class="form-control"/>
         <div class="form-group">
             <label asp-for="Salesperson" value="Salesperson" class="control-label"></label>
-            <input asp-for="Salesperson" class="form-control"/>
+            <input asp-for="Salesperson" class="form-control" required/>
             <span asp-validation-for="Salesperson" class="text-danger"></span>
         </div>
          
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit"  asp-action="create" value="Save" class="btn btn-primary" />
         </div>
     </form>
     </div>
